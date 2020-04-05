@@ -1,0 +1,2 @@
+INDEX VERSION 1.4+E:\workspace\potofolio\Twitch\springback\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3181085576.index

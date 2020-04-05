@@ -1,0 +1,159 @@
+<template>
+    <v-container>
+        <v-card height="370">
+            <v-toolbar
+                color="teal"
+                dark
+                dense
+                >
+                <v-app-bar-nav-icon></v-app-bar-nav-icon>
+                <v-toolbar-title>카드생성</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon @click="$emit('delChanelCreate')">
+                    <v-icon> mdi-delete-forever-outline</v-icon>
+                </v-btn>
+            </v-toolbar>
+                <v-list two-line subheader > 
+                    <v-subheader>채널아이디</v-subheader>
+                    <v-list-item>
+                        <!-- <v-text-field
+                            v-model="channelId"
+                            :counter="25"
+                            :rules="nameRules"
+                            label="스트리머ID"
+                            required
+                        ></v-text-field> -->
+                        <v-autocomplete
+                            v-model="name"
+                            :loading="loading"
+                            :items="items"
+                            :search-input.sync="search"
+                            chips
+                            flat
+                            hide-no-data
+                            hide-details
+                            label="스트리머?"
+                            solo
+                            color = "deep-purple"
+                        >
+                        <template v-slot:no-data>
+                            <v-list-item>
+                            <v-list-item-title>
+                                <strong>스트리머 이름을</strong>
+                                입력하세요
+                            </v-list-item-title>
+                            </v-list-item>
+                        </template>
+                        <template v-slot:selection="{ attr, on, item, selected }">
+                            <v-chip
+                            v-bind="attr"
+                            :input-value="selected"
+                            color="blue-grey"
+                            class="white--text"
+                            v-on="on"
+                            >
+                            <v-icon left>mdi-coin</v-icon>
+                            <span v-text="item.name"></span>
+                            </v-chip>
+                        </template>
+                        <template v-slot:item="{ item }">
+                            <v-list-item-avatar
+                                color="indigo"
+                                class="headline font-weight-light white--text"
+                            >
+                                <template v-if="item.live==1">
+                                    생
+                                </template>
+                            </v-list-item-avatar>
+                            <v-list-item-content>
+                                <v-list-item-title v-text="item.name"></v-list-item-title>
+                                <v-list-item-subtitle v-text="item.symbol"></v-list-item-subtitle>
+                            </v-list-item-content>
+                            <v-list-item-action>
+                                <v-icon>mdi-coin</v-icon>
+                            </v-list-item-action>
+                        </template>
+                        </v-autocomplete>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                </v-list>
+                <v-list
+                    subheader
+                    two-line
+                    flat
+                >
+                    <v-subheader>보고싶은 영 역 선택</v-subheader>
+                    <v-list-item>
+                        <v-radio-group v-model="viewOption" row>
+                            <v-radio label="방송1" value="stream"></v-radio>
+                            <v-radio label="채팅" value="chat"></v-radio>
+                        </v-radio-group>
+                    </v-list-item>
+                </v-list>
+                <v-card-actions>
+                    <v-btn
+                        :disabled="!name"
+                        color="indigo"
+                        @click="addClick"
+                        outlined
+                    >
+                        채널생성
+                    </v-btn>
+                </v-card-actions>
+        </v-card>
+    </v-container>
+</template>
+
+<script>
+import {mapActions} from "vuex";
+import {streamerInfo} from "../api";
+export default {
+    data() {
+        return {
+            name : '',
+            loading: false,
+            viewOption: 'stream' ,
+            items: [],
+            search : null,
+            channelId : null,
+            tab: null,
+        }
+    },
+    watch: {
+        name (val) { 
+            if (val != null) this.tab = 0
+            else this.tab = null
+        },
+        search(val){        
+            if(val.length > 2) val && val !== this.select && this.querySelections(val) 
+        } 
+    },
+    methods: {
+        ...mapActions(['FETCH_STREAMER_LIST']),
+        querySelections (v) {
+            this.loading = true;
+            this.items = [];
+            setTimeout(() => {  
+                streamerInfo.list(v)
+                .then(data=>{
+                    data.list.forEach(el => {
+                        this.items.push(el.userName);
+                    });                    
+                })
+                .catch(err=>console.log(err))
+                .finally(() => (this.loading = false))  
+            }, 500)
+        },
+        addClick(){
+            streamerInfo.list(this.name)
+            .then((data)=>{
+                this.$emit('addClick' , data.list[0].loginId , this.viewOption , this.name);
+            })
+        }
+    },
+}
+</script>
+
+<style>
+
+</style>
