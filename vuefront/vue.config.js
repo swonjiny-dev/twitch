@@ -1,6 +1,7 @@
 module.exports = {
     configureWebpack: {
         devtool: 'source-map'
-    }
-    // lintOnSave: false //lint 끄자
+    },
+    outputDir : '../nodemysql/dist'
+    ,lintOnSave: false //lint 끄자
 }

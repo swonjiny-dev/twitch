@@ -110,6 +110,7 @@ export default {
                 this.list = data.list;
                 this.overlay = false;
             }).catch(err=>{
+                console.erro(err);
                 this.errorMessage('잠시후 다시 이용해 주세요');
             });
         }

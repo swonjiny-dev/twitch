@@ -119,6 +119,7 @@ export default {
                 this.list = data;
                 this.overlay = false;
             }).catch(err=>{
+                console.log(err);
                 this.errorMessage('잠시후 다시 이용해 주세요');
             } )
         }
