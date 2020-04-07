@@ -62,6 +62,9 @@ import TwitchChannel from "../components/TwitchChannel";
 import TwitchChat from "../components/TwitchChat";
 import { mapState, mapMutations} from 'vuex'
 export default {
+    created() {
+        document.title = "멀티트위치";
+    },
     components : {
         GridLayout: VueGridLayout.GridLayout,
         GridItem: VueGridLayout.GridItem,

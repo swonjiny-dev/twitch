@@ -177,7 +177,6 @@ export default {
 				if(data.minus.length > 0) this.minuslist = data.minus;
                 this.overlay = false;
             }).catch(err=>{
-                console.error(err);
                 this.errorMessage('잠시후 다시 이용해 주세요');
                 
             });

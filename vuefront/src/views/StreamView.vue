@@ -86,6 +86,7 @@ export default {
         }
     },
     created() {
+        document.title = "스트리머정보";
         this.layout = [];
         this.layout.push({"x":0,"y":0,"w":3,"h":5,"i":"followerRank" , "option" : "followerRank"});
         this.layout.push({"x":3,"y":0,"w":3,"h":5,"i":"viewRank" , "option" : "viewRank"});

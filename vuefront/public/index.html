@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta property="og:title" content="멀티트위치">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow" />
+    <meta name="subject" content="twitch , 트위치 ,스트리머 , streamer , 멀티트위치, multitwitch">
+    <meta name="Description" CONTENT="주제: 멀티트위치, subject : multitwitch, 작성자 : swonjiny">
+    <meta property="og:description" content="멀티트위치 multitwitch 구현및 스트리리머(streamer) 정보보기">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
     
   </head>
+ 
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
@@ -17,4 +24,11 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script type="text/javascript">
+    var browser = navigator.userAgent;
+    var msg = "";
+    if(browser.indexOf('MSIE')>0) msg = "해당 브라우저는 지원하지 않습니다. 크롬등을 이용하세요.";
+    if(/msie|trident/i.test(browser)) msg = "해당 브라우저는 지원하지 않습니다. 크롬등을 이용하세요.";
+    if(msg.length > 0) document.getElementById('app').innerText = msg;
+  </script>
 </html>
