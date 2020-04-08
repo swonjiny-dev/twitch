@@ -3,7 +3,7 @@
 		<AppBar></AppBar>
 		<v-content class="mb-12">
 			<router-view></router-view>
-		</v-content>	
+		</v-content>
 		<AppFooter></AppFooter>
 	</v-app>
 </template>
